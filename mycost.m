@@ -1,26 +1,22 @@
-%function  [Cost , sol ] = MyCost( x,  model)
+function  [Cost , sol ] = mycost( x ,  model)
 
-
-clc,clear,close all
-
-
-base_path = 'D:\zjw\源代码资料';
-path(path,   [ base_path  , '\data']) ;
-
-num_task =  50 ; % 任务的数目
-num_ECC =  3 ; % ECC 的数目
-
-eval(    [  'load '      'model_'   num2str( num_task )  ,  '_' , num2str(num_ECC)  '.mat  '   ]   )
-
-rand('seed' , 0)
-x =  unifrnd( model.VarMin , model.VarMax , 1, model.nVar ) ;
+% base_path = 'D:\zjw\源代码资料';
+% path(path,   [ base_path  , '\data']) ;
+% 
+% num_task =  50 ; % 任务的数目
+% num_ECC =  3 ; % ECC 的数目
+% 
+% eval(    [  'load '      'model_'   num2str( num_task )  ,  '_' , num2str(num_ECC)  '.mat  '   ]   )
+% 
+% rand('seed' , 0)
+% x =  unifrnd( model.VarMin , model.VarMax , 1, model.nVar ) ;
 
 %% 解码
-machine_index =  floor(  x ) ;%将 X 的每个元素四舍五入到小于或等于该元素的最接近整数。
-fractional_part  =  x   - floor(x ) ;
-JobSeq =  cell(   model.num_ECC , 1) ; % 作业加工序列
+machine_index =  floor(x ) ;%将 X 的每个元素四舍五入到小于或等于该元素的最接近整数。
+fractional_part  =  x   - floor(x ) ;%微小差额
+JobSeq =  cell(   model.num_ECC , 1) ; % 作业加工序列,生成元胞数组【3*1】
 for ind =  1 : model.num_ECC
-    temp =     find( machine_index ==  ind )  ;
+    temp =     find( machine_index ==  ind )  ;%返回 machine_index中值为1，2，3的索引
     
     if isempty( temp )
         continue ;
