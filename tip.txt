@@ -1,0 +1,2 @@
+怎么理解task_due_date，为什么是3到8之间的
+task_release_date   +  ceil( min(  task_processing_time , [],2 ) .* round( unifrnd( 3, 8 ,  num_task , 1  ) ) ) ;
